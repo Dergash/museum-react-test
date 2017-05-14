@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Row, Col } from 'react-bootstrap';
+import ExibitsTable from '../components/exibits-table/exibits-table';
+
 import './main.css';
 
 @connect(state => {
@@ -12,13 +14,7 @@ export default class Main extends React.Component {
     render() {
         return(
             <section>
-                <Grid>
-                    <Row>
-                        <Col>
-                            <h1>{this.props.pek}</h1>
-                        </Col>
-                    </Row>
-                </Grid>
+                <ExibitsTable />
             </section>
         );
     }
