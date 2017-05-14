@@ -1,13 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-// В больших приложениях к стору цепляю только формы, а в компоненты передаю свойствами
-@connect(state => {
-    return {
-        exibits: state.exibits,
-    };
-})
 export default class ExibitsTable extends React.Component {
     render() {
         return(
@@ -21,7 +16,7 @@ export default class ExibitsTable extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                { this.props.exibits.map((exibit, index) =>
+                { this.props.exibits && this.props.exibits.map((exibit, index) =>
                     <tr key={index}>
                         <td>{exibit.name}</td>
                         <td>{this.formatOrigin(exibit.city, exibit.country)}</td>
@@ -39,4 +34,13 @@ export default class ExibitsTable extends React.Component {
         return `${city}${city && country ? ', ' : ''}${country}`;
     }
 }
- 
+
+ExibitsTable.propTypes = {
+    exibits: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string,
+        organization: PropTypes.string,
+        country: PropTypes.string,
+        city: PropTypes.string,
+        description: PropTypes.string,
+    })),
+};
