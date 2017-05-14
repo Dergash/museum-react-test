@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Grid, Row, Col } from 'react-bootstrap';
+import './main.css';
 
 @connect(state => {
     return {
@@ -9,7 +11,15 @@ import { connect } from 'react-redux';
 export default class Main extends React.Component {
     render() {
         return(
-            <h1>{this.props.pek}</h1>
+            <section>
+                <Grid>
+                    <Row>
+                        <Col>
+                            <h1>{this.props.pek}</h1>
+                        </Col>
+                    </Row>
+                </Grid>
+            </section>
         );
     }
 }

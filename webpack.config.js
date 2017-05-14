@@ -1,8 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const extractCss = new ExtractTextPlugin('index.css');
 
 module.exports = {
+    externals: {
+        'jquery': 'jQuery'
+    },
     context: path.resolve(__dirname),
     entry: {
         app: './src/app.js',
@@ -20,6 +25,22 @@ module.exports = {
                 use: [{
                     loader: 'babel-loader',
                 }],
+            },
+            /* Транспайлер css (в основном хотел нестинг) */
+            {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        "css-loader",
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: [require('postcss-nested')],
+                            }
+                        }
+                    ],
+                }),
             },
         ],
     },
@@ -44,5 +65,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html'
         }),
-    ],
+        /* css в отдельный файл */
+        new ExtractTextPlugin('styles.css'),
+    ]
 };
