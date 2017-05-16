@@ -1,0 +1,38 @@
+ .exibits-table-filter {
+     &__button, &__button:hover, &__button:active, &__button:focus {
+        background: none;
+        border: none;
+        white-space: nowrap;
+     }
+
+     &__checkbox {
+        display: inline;
+     }
+
+    &__option {
+        padding-left: 56px;    
+    }
+
+     &__popup {
+         position: absolute;
+         background: white;
+         border: 1px solid black;
+
+         ul {
+             list-style: none;
+             padding-top: 16px;
+             padding-bottom: 16px;
+             padding-left: 16px;
+             margin-right: 16px;
+
+             li {
+                margin-bottom: 24px;
+             }
+
+             li:last-child {
+                margin-bottom: 0px;
+             }
+         }
+     }
+ }
+ 

@@ -7,7 +7,14 @@ export function getExibits() {
             url: exibitsUrl,
         })
         .done(response => {
-            resolve(JSON.parse(response));
+            const exibits = JSON.parse(response)
+                .map(exibit => ({
+                    name: exibit.name,
+                    organization: exibit.origin,
+                    origin: `${exibit.city}${exibit.city && exibit.country ? ', ' : ''}${exibit.country}`,
+                    description: exibit.description,
+                }));
+            resolve(exibits);
         })
         .fail(error => {
             reject(error);

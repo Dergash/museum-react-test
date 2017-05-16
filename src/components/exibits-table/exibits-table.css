@@ -1,0 +1,29 @@
+ .exibits-table  {
+
+    
+    &__row {
+        height: 48px;
+    }
+
+    .table &__column {
+
+       // vertical-align: middle;
+        
+        &_name {
+            width: 24%;
+        }
+
+        &_organization {
+            width: 16%;
+        }
+
+        &_origin {
+            width: 16%;
+        }
+
+        &_description {
+            width: 40%;
+        }
+    }
+ }
+ 
