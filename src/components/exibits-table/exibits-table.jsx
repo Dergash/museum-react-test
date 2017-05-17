@@ -4,6 +4,9 @@ import { Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Filter from './filter';
 import Search from './search';
+import CollapsableText from '../collapsable-text/collapsable-text';
+import autobind from 'autobind-decorator';
+import * as actions from '../../actions';
 import './exibits-table.css';
 
 const cn = require('bem-cn')('exibits-table');
@@ -12,6 +15,7 @@ const cn = require('bem-cn')('exibits-table');
     return {
         filters: state.filters,
         searchPattern: state.searchPattern,
+        expandedRowId: state.expandedRowId,
     };
 })
 export default class ExibitsTable extends React.Component {
@@ -19,16 +23,16 @@ export default class ExibitsTable extends React.Component {
         const options = this.props.exibits && this.props.exibits.map(exibit => exibit.origin);
         return(
             <div className={cn.mix(this.props.className)}>
-                <Table bordered>
+                <Table hover bordered>
                     <thead>
                         <tr>
-                            <th>
+                            <th className={cn('column', { name: true })}>
                                 <Search
                                     title="Название"
                                 >
                                 </Search>
                             </th>
-                            <th>
+                            <th className={cn('column', { origin: true })}>
                                 <Filter
                                     title="Место создания"
                                     options={options}
@@ -36,20 +40,30 @@ export default class ExibitsTable extends React.Component {
                                     onChange={(e) => this.handleOnFiltersChange(e)}
                                 />
                             </th>
-                            <th>Организация</th>
-                            <th>Описание</th>
+                            <th className={cn('column', { organization: true })}>Организация</th>
+                            <th className={cn('column', { description: true })}>Описание</th>
                         </tr>
                     </thead>
                     <tbody>
                     { this.props.exibits && this.props.exibits
                         .filter(exibit => !this.props.filters.length || this.props.filters.indexOf(exibit.origin) > -1)
                         .filter(exibit => !this.props.searchPattern.length || exibit.name.indexOf(this.props.searchPattern) > -1)
-                        .map((exibit, index) =>
-                        <tr key={index} className={cn('row')}>
-                            <td className={cn('column', { name: true })}>{exibit.name}</td>
-                            <td className={cn('column', { origin: true })}>{exibit.origin}</td>
-                            <td className={cn('column', { organization: true })}>{exibit.organization}</td>
-                            <td className={cn('column', { description: true })}>{exibit.description}</td>
+                        .map(exibit =>
+                        <tr
+                            key={exibit.id}
+                            data-id={exibit.id}
+                            className={cn('row')}
+                            onClick={this.handleOnRowClick}
+                        >
+                            <td>{exibit.name}</td>
+                            <td>{exibit.origin}</td>
+                            <td>{exibit.organization}</td>
+                            <td>
+                                <CollapsableText
+                                    collapsed={this.props.expandedRowId !== exibit.id}
+                                    value={exibit.description}
+                                />
+                            </td>
                         </tr>
                         )
                     }
@@ -57,6 +71,13 @@ export default class ExibitsTable extends React.Component {
                 </Table>
             </div>
         );
+    }
+
+    @autobind
+    handleOnRowClick(event) {
+        const clickedRowId = parseInt(event.currentTarget.dataset.id, 10);
+        const expandedRowId = this.props.expandedRowId !== clickedRowId ? clickedRowId : null;
+        this.props.dispatch(actions.expandRow(expandedRowId));
     }
 }
 

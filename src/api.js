@@ -8,7 +8,8 @@ export function getExibits() {
         })
         .done(response => {
             const exibits = JSON.parse(response)
-                .map(exibit => ({
+                .map((exibit, index) => ({
+                    id: index, // feels uncomfortable without a key :<
                     name: exibit.name,
                     organization: exibit.origin,
                     origin: `${exibit.city}${exibit.city && exibit.country ? ', ' : ''}${exibit.country}`,

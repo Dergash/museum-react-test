@@ -40,3 +40,10 @@ export function setSearchPattern(searchPattern) {
         searchPattern,
     };
 }
+
+export function expandRow(rowId) {
+    return {
+        type: 'EXPAND_ROW',
+        rowId,
+    };
+}
