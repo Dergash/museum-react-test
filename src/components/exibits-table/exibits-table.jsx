@@ -15,7 +15,7 @@ const cn = require('bem-cn')('exibits-table');
     return {
         filters: state.filters,
         searchPattern: state.searchPattern,
-        expandedRowId: state.expandedRowId,
+        selectedExibitId: state.selectedExibitId,
     };
 })
 export default class ExibitsTable extends React.Component {
@@ -23,7 +23,7 @@ export default class ExibitsTable extends React.Component {
         const options = this.props.exibits && this.props.exibits.map(exibit => exibit.origin);
         return(
             <div className={cn.mix(this.props.className)}>
-                <Table hover bordered>
+                <Table hover>
                     <thead>
                         <tr>
                             <th className={cn('column', { name: true })}>
@@ -53,7 +53,7 @@ export default class ExibitsTable extends React.Component {
                         <tr
                             key={exibit.id}
                             data-id={exibit.id}
-                            className={cn('row')}
+                            className={cn('row', { selected: this.props.selectedExibitId === exibit.id })}
                             onClick={this.handleOnRowClick}
                         >
                             <td>{exibit.name}</td>
@@ -61,7 +61,7 @@ export default class ExibitsTable extends React.Component {
                             <td>{exibit.organization}</td>
                             <td>
                                 <CollapsableText
-                                    collapsed={this.props.expandedRowId !== exibit.id}
+                                    collapsed={this.props.selectedExibitId !== exibit.id}
                                     value={exibit.description}
                                 />
                             </td>
@@ -76,9 +76,9 @@ export default class ExibitsTable extends React.Component {
 
     @autobind
     handleOnRowClick(event) {
-        const clickedRowId = parseInt(event.currentTarget.dataset.id, 10);
-        const expandedRowId = this.props.expandedRowId !== clickedRowId ? clickedRowId : null;
-        this.props.dispatch(actions.expandRow(expandedRowId));
+        const clickedExibitId = parseInt(event.currentTarget.dataset.id, 10);
+        const selectedExibitId = this.props.selectedExibitId !== clickedExibitId ? clickedExibitId : null;
+        this.props.dispatch(actions.selectExibit(selectedExibitId));
     }
 }
 

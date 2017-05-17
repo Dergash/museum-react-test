@@ -27,6 +27,13 @@ export function addExibit() {
     };
 }
 
+export function deleteExibit(deletedExibitId) {
+    return {
+        type: 'DELETE_EXIBIT',
+        deletedExibitId,
+    };
+}
+
 export function setFilters(filters) {
     return {
         type: 'SET_FILTERS',
@@ -41,9 +48,9 @@ export function setSearchPattern(searchPattern) {
     };
 }
 
-export function expandRow(rowId) {
+export function selectExibit(exibitId) {
     return {
-        type: 'EXPAND_ROW',
-        rowId,
+        type: 'SELECT_EXIBIT',
+        exibitId,
     };
 }

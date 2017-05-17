@@ -13,6 +13,7 @@ const cn = require('bem-cn')('exibits-main');
 @connect(state => {
     return {
         exibits: state.exibits,
+        selectedExibitId: state.selectedExibitId,
     };
 })
 export default class Main extends React.Component {
@@ -24,9 +25,28 @@ export default class Main extends React.Component {
     }
 
     render() {
+        const exibitSelected = !(!this.props.selectedExibitId && this.props.selectedExibitId !== 0);
         return(
             <section className={cn()}>
-                <Button className={cn('add')} role="primary" value="Добавить" onClick={this.handleOnAddClick} />
+                <div className={cn('toolbar')}>
+                    <Button className={cn('toolbar-button')} role="primary" value="Добавить" onClick={this.handleOnAddClick} />
+                    { exibitSelected && 
+                        <Button
+                            className={cn('toolbar-button')}
+                            role="primary"
+                            value="Изменить"
+                            
+                        />
+                    }
+                    { exibitSelected && 
+                        <Button
+                            className={cn('toolbar-button')}
+                            role="primary"
+                            value="Удалить"
+                            onClick={this.handleOnDeleteClick}
+                        />
+                    }
+                </div>
                 <ExibitsTable className={cn('table')} exibits={this.props.exibits} />
             </section>
         );
@@ -35,5 +55,10 @@ export default class Main extends React.Component {
     @autobind
     handleOnAddClick() {
         this.props.dispatch(actions.addExibit());
+    }
+
+    @autobind
+    handleOnDeleteClick() {
+        this.props.dispatch(actions.deleteExibit(this.props.selectedExibitId));
     }
 }

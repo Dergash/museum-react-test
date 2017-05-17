@@ -2,25 +2,27 @@ export const INITIAL_STATE = {
     exibits: null,
     filters: [],
     searchPattern: '',
-    expandedRowId: null,
+    selectedExibitId: null,
 };
 
 export default function reduce(state = {}, action) {
     switch (action.type) {
         case 'ADD_EXIBIT': return addExibit(state, action);
+        case 'DELETE_EXIBIT': return deleteExibit(state, action);
         case 'GET_EXIBITS': return state;
         case 'GET_EXIBITS_RESOLVE': return getExibitsResolve(state, action);
         case 'GET_EXIBITS_REJECT': return getExibitsReject(state, action);
         case 'SET_FILTERS': return setFilters(state, action);
         case 'SET_SEARCH_PATTERN': return setSearchPattern(state, action);
-        case 'EXPAND_ROW': return expandRow(state, action);
+        case 'SELECT_EXIBIT': return selectExibit(state, action);
         default: return state;
     }
 }
 
 function addExibit(state) {
     const generateId = state.exibits
-        .reduce((previous, next) => ( previous > next ? previous : next)).id + 1;
+        .map(exibit => exibit.id)
+        .reduce((previous, next) => ( next > previous ? next : previous)) + 1;
     return {
         ...state,
         exibits: [
@@ -34,6 +36,13 @@ function addExibit(state) {
             ...state.exibits,
         ],
     }
+}
+
+function deleteExibit(state, { deletedExibitId }) {
+    return {
+        ...state,
+        exibits: state.exibits.filter(exibit => exibit.id !== deletedExibitId),
+    };
 }
 
 function getExibitsResolve(state, { exibits }) {
@@ -64,9 +73,9 @@ function setSearchPattern(state, { searchPattern }) {
     };
 }
 
-function expandRow(state, { rowId }) {
+function selectExibit(state, { exibitId }) {
     return {
         ...state,
-        expandedRowId: rowId,
+        selectedExibitId: exibitId,
     };
 }
