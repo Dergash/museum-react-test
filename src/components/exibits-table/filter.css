@@ -1,4 +1,5 @@
  .exibits-table-filter {
+    
 
      &__checkbox {
          label {
@@ -41,7 +42,9 @@
      }
 
     &__option {
-        padding-left: 56px;    
+        padding-left: 24px;    
+        font-weight: normal;
+        display: inline-block;
     }
 
      &__popup {
@@ -51,13 +54,21 @@
 
          ul {
              list-style: none;
-             padding-top: 16px;
-             padding-bottom: 16px;
-             padding-left: 16px;
-             margin-right: 16px;
+             padding-top: 0;
+             padding-bottom: 0;
+             padding-left: 0;
+             padding-right: 0;
+             margin: 0;
 
              li {
-                margin-bottom: 24px;
+                padding-left: 24px;
+                padding-right: 24px;
+                vertical-align: middle;
+                cursor: pointer;
+
+                &:hover {
+                    background: gray;
+                }
              }
 
              li:last-child {

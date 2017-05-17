@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Glyphicon, Checkbox } from 'react-bootstrap';
+import { Glyphicon } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import autobind from 'autobind-decorator';
 import Button from '../button/button';
+import Checkbox from '../checkbox/checkbox';
 import * as actions from '../../actions';
 import './filter.css';
 
@@ -31,7 +32,6 @@ export default class Filter extends React.Component {
         document.removeEventListener('click', this.handleDocumentOnClick);
     }
 
-
     render() {
         return(
             <div ref={(popup) => this.popup = popup}>
@@ -52,12 +52,8 @@ export default class Filter extends React.Component {
                     .sort((a, b) => a.localeCompare(b))
                     .map((option, index) => {
                         return (
-                            <li key={index}>
-                                <Checkbox
-                                    className={cn('checkbox')()}
-                                    checked={this.props.filters.indexOf(option) > -1}
-                                    onChange={() => this.handleOnCheckOption(option)}
-                                />
+                            <li key={index} data-option={option} onClick={this.handleOnCheckOption}>
+                                <Checkbox checked={this.props.filters.indexOf(option) > -1} />
                                 <span className={cn('option')}>
                                     {option || 'Не задано'}
                                 </span>
@@ -75,7 +71,9 @@ export default class Filter extends React.Component {
         })
     }
 
-    handleOnCheckOption(option) {
+    @autobind
+    handleOnCheckOption(event) {
+        const option =event.currentTarget.dataset.option;
         const filters = this.props.filters.indexOf(option) > -1
             ? this.props.filters.filter(filter => filter !== option)
             : [
