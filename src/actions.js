@@ -21,16 +21,43 @@ export function getExibits() {
     }
 }
 
+export function selectExibit(exibitId) {
+    return {
+        type: 'SELECT_EXIBIT',
+        exibitId,
+    };
+}
+
 export function addExibit() {
     return {
         type: 'ADD_EXIBIT',
     };
 }
 
-export function deleteExibit(deletedExibitId) {
+export function editExibit(exibit) {
+    return {
+        type: 'EDIT_EXIBIT',
+        exibit,
+    };
+}
+
+export function editExibitChange(exibit) {
+    return {
+        type: 'EDIT_EXIBIT_CHANGE',
+        exibit,
+    };
+}
+
+export function deleteExibit(exibitId) {
     return {
         type: 'DELETE_EXIBIT',
-        deletedExibitId,
+        exibitId,
+    };
+}
+
+export function saveExibit() {
+    return {
+        type: 'SAVE_EXIBIT',
     };
 }
 
@@ -45,12 +72,5 @@ export function setSearchPattern(searchPattern) {
     return {
         type: 'SET_SEARCH_PATTERN',
         searchPattern,
-    };
-}
-
-export function selectExibit(exibitId) {
-    return {
-        type: 'SELECT_EXIBIT',
-        exibitId,
     };
 }

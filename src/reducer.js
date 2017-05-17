@@ -3,18 +3,22 @@ export const INITIAL_STATE = {
     filters: [],
     searchPattern: '',
     selectedExibitId: null,
+    editedExibit: null,
 };
 
 export default function reduce(state = {}, action) {
     switch (action.type) {
+        case 'SELECT_EXIBIT': return selectExibit(state, action);
         case 'ADD_EXIBIT': return addExibit(state, action);
+        case 'EDIT_EXIBIT': return editExibit(state, action);
+        case 'EDIT_EXIBIT_CHANGE': return editExibitChange(state, action);
         case 'DELETE_EXIBIT': return deleteExibit(state, action);
+        case 'SAVE_EXIBIT': return saveExibit(state, action);
         case 'GET_EXIBITS': return state;
         case 'GET_EXIBITS_RESOLVE': return getExibitsResolve(state, action);
         case 'GET_EXIBITS_REJECT': return getExibitsReject(state, action);
         case 'SET_FILTERS': return setFilters(state, action);
         case 'SET_SEARCH_PATTERN': return setSearchPattern(state, action);
-        case 'SELECT_EXIBIT': return selectExibit(state, action);
         default: return state;
     }
 }
@@ -38,10 +42,32 @@ function addExibit(state) {
     }
 }
 
-function deleteExibit(state, { deletedExibitId }) {
+function editExibit(state, { exibit }) {
     return {
         ...state,
-        exibits: state.exibits.filter(exibit => exibit.id !== deletedExibitId),
+        editedExibit: exibit,
+    };
+}
+
+function editExibitChange(state, { exibit }) {
+    return {
+        ...state,
+        editedExibit: exibit,
+    };
+}
+
+function deleteExibit(state, { exibitId }) {
+    return {
+        ...state,
+        exibits: state.exibits.filter(exibit => exibit.id !== exibitId),
+    };
+}
+
+function saveExibit(state) {
+    return {
+        ...state,
+        editedExibit: null,
+        exibits: state.exibits.map(exibit => exibit.id === state.editedExibit.id ? state.editedExibit : exibit),
     };
 }
 
@@ -76,6 +102,6 @@ function setSearchPattern(state, { searchPattern }) {
 function selectExibit(state, { exibitId }) {
     return {
         ...state,
-        selectedExibitId: exibitId,
+        selectedExibitId: (state.editedExibit) ? state.editedExibit.id : exibitId,
     };
 }

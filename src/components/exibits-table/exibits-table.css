@@ -4,6 +4,7 @@
         height: 48px;
         cursor: pointer;
 
+
         &_selected {
             border-left: 10px solid #1e88e5;
         }
@@ -20,6 +21,7 @@
         
         tbody {
             height: 100%;
+
         }
     }
 
