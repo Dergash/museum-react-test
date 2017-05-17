@@ -67,7 +67,6 @@ export default class Search extends React.Component {
 
     @autobind
     handleDocumentOnClick(event) {
-        console.log(event.target);
         if (this.state.isOpen && !this.popup.contains(event.target)) {
             this.setState({
                 isOpen: false,

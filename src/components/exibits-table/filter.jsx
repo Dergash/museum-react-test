@@ -24,11 +24,11 @@ export default class Filter extends React.Component {
     }
 
     componentDidMount() {
-        document.body.addEventListener('click', this.handleDocumentOnClick);
+        document.addEventListener('click', this.handleDocumentOnClick);
     }
 
     componentWillUnmount() {
-        document.body.removeEventListener('click', this.handleDocumentOnClick);
+        document.removeEventListener('click', this.handleDocumentOnClick);
     }
 
 

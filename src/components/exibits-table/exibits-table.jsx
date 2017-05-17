@@ -47,7 +47,8 @@ export default class ExibitsTable extends React.Component {
                     <tbody>
                     { this.props.exibits && this.props.exibits
                         .filter(exibit => !this.props.filters.length || this.props.filters.indexOf(exibit.origin) > -1)
-                        .filter(exibit => !this.props.searchPattern.length || exibit.name.indexOf(this.props.searchPattern) > -1)
+                        .filter(exibit => !this.props.searchPattern.length
+                            || exibit.name.toUpperCase().indexOf(this.props.searchPattern.toUpperCase()) > -1)
                         .map(exibit =>
                         <tr
                             key={exibit.id}
