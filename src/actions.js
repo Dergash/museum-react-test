@@ -21,9 +21,22 @@ export function getExibits() {
     }
 }
 
+export function addExibit() {
+    return {
+        type: 'ADD_EXIBIT',
+    };
+}
+
 export function setFilters(filters) {
     return {
         type: 'SET_FILTERS',
         filters,
+    };
+}
+
+export function setSearchPattern(searchPattern) {
+    return {
+        type: 'SET_SEARCH_PATTERN',
+        searchPattern,
     };
 }

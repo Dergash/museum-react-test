@@ -1,14 +1,25 @@
- .exibits-table  {
+.exibits-table  {
 
-    
     &__row {
         height: 48px;
     }
 
-    .table &__column {
+    thead > tr > th {
+        vertical-align: middle;
+        /* padding: 0px 56px 0px 56px; */
+    }
 
-       // vertical-align: middle;
+    .table {
+        height: 100%;
         
+        tbody {
+            height: 100%;
+        }
+    }
+
+    .table &__column {
+        /* padding: 0px 56px 0px 56px; */
+
         &_name {
             width: 24%;
         }

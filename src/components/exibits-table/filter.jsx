@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Glyphicon, Checkbox } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import autobind from 'autobind-decorator';
+import Button from '../button/button';
 import * as actions from '../../actions';
 import './filter.css';
 
@@ -23,21 +24,18 @@ export default class Filter extends React.Component {
     }
 
     componentDidMount() {
-        document.addEventListener('click', this.handleDocumentOnClick);
+        document.body.addEventListener('click', this.handleDocumentOnClick);
     }
 
     componentWillUnmount() {
-        document.removeEventListener('click', this.handleDocumentOnClick);
+        document.body.removeEventListener('click', this.handleDocumentOnClick);
     }
 
 
     render() {
         return(
             <div ref={(popup) => this.popup = popup}>
-                <button className={cn('button')} onClick={(e) => this.handleOnClick(e)}>
-                    {this.props.title}
-                    <Glyphicon glyph="filter" />
-                </button>
+                <Button value={this.props.title} icon="filter" onClick={(e) => this.handleOnClick(e)} />
                 { this.state.isOpen && 
                     <div className={cn('popup')}>
                         { this.props.options && this.renderOptions() }

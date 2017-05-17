@@ -1,0 +1,33 @@
+.button {
+    height: 36px;
+    white-space: nowrap;
+    background: none;
+    border: none;
+}
+
+.button, .button:hover, .button:active, .button:focus {
+
+    
+
+    outline:0;
+
+
+    
+}
+
+.button:hover {
+    color: #616161;
+}
+
+.button {
+    &__icon {
+        padding-left: 12px;
+    }
+
+    &_role_primary {
+        color: #03A9F4;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+}
+
