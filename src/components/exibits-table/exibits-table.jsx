@@ -79,6 +79,7 @@ export default class ExibitsTable extends React.Component {
                             <td>
                                 <EditableField
                                     value={editedId === exibit.id ? this.props.editedExibit.name : exibit.name}
+                                    selected={this.props.selectedExibitId !== exibit.id}
                                     edit={editedId === exibit.id}
                                     onChange={this.handleOnNameChange}
                                 />
@@ -86,6 +87,7 @@ export default class ExibitsTable extends React.Component {
                             <td>
                                 <EditableField
                                     value={editedId === exibit.id ? this.props.editedExibit.origin : exibit.origin}
+                                    selected={this.props.selectedExibitId !== exibit.id}
                                     edit={editedId === exibit.id}
                                     onChange={this.handleOnOriginChange}
                                 />
@@ -93,24 +95,18 @@ export default class ExibitsTable extends React.Component {
                             <td>
                                 <EditableField
                                     value={editedId === exibit.id ? this.props.editedExibit.organization : exibit.organization}
+                                    selected={this.props.selectedExibitId !== exibit.id}
                                     edit={editedId === exibit.id}
                                     onChange={this.handleOnOrganizationChange}
                                 />
                             </td>
                             <td>
-                                { editedId === exibit.id &&
-                                    <EditableField
-                                        value={editedId === exibit.id ? this.props.editedExibit.description : exibit.description}
-                                        edit={editedId === exibit.id}
-                                        onChange={this.handleOnDescriptionChange}
-                                    />
-                                }
-                                { editedId !== exibit.id &&
-                                    <CollapsableText
-                                        collapsed={this.props.selectedExibitId !== exibit.id}
-                                        value={exibit.description}
-                                    />
-                                }
+                                <EditableField
+                                    value={editedId === exibit.id ? this.props.editedExibit.description : exibit.description}
+                                    selected={this.props.selectedExibitId !== exibit.id}
+                                    edit={editedId === exibit.id}
+                                    onChange={this.handleOnDescriptionChange}
+                                />
                             </td>
                         </tr>
                         )
@@ -119,13 +115,15 @@ export default class ExibitsTable extends React.Component {
                     <tfoot>
                         <tr>
                             <td colSpan="4">
-                                <Pager
-                                    className={cn('pager')}
-                                    items={exibitsToWork.length}
-                                    itemsLimit={this.props.itemsOnPage}
-                                    page={this.state.page}
-                                    onChange={this.handleOnPageChange}
-                                />
+                                { exibitsToShow.length > 0 &&
+                                    <Pager
+                                        className={cn('pager')}
+                                        items={exibitsToWork.length}
+                                        itemsLimit={this.props.itemsOnPage}
+                                        page={this.state.page}
+                                        onChange={this.handleOnPageChange}
+                                    />
+                                }
                             </td>
                         </tr>
                     </tfoot>

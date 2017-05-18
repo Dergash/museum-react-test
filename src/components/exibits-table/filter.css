@@ -1,6 +1,4 @@
  .exibits-table-filter {
-    
-
      &__checkbox {
          label {
             width: 20px;
@@ -67,7 +65,7 @@
                 cursor: pointer;
 
                 &:hover {
-                    background: gray;
+                    background: #e3f2fd;
                 }
              }
 
