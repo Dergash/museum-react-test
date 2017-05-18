@@ -22,7 +22,6 @@ const cn = require('bem-cn')('exibits-table');
     };
 })
 export default class ExibitsTable extends React.Component {
-
     constructor(props) {
         super(props);
 

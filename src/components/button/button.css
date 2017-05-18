@@ -3,16 +3,14 @@
     white-space: nowrap;
     background: none;
     border: none;
+
+    @media (max-width: 1024px) {
+        white-space: normal;
+    }
 }
 
 .button, .button:hover, .button:active, .button:focus {
-
-    
-
     outline:0;
-
-
-    
 }
 
 .button:hover {
@@ -21,6 +19,9 @@
 
 .button {
     &__icon {
+        @media (max-width: 1024px) {
+            display: none;
+        }
         padding-left: 12px;
     }
 

@@ -12,7 +12,6 @@ app.get('/exibits', (req, res) => {
             res.status(500);
             console.log(error);
         }
-        console.log(exibits);
         res.status(200).send(exibits);
     });
 });

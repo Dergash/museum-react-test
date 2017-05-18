@@ -1,13 +1,6 @@
 .exibits-table-search {
-    &__button, &__button:hover, &__button:active, &__button:focus {
-        background: none;
-        border: none;
-        white-space: nowrap;
-    }
-
      &__popup {
          position: absolute;
-
          box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
      }
 }

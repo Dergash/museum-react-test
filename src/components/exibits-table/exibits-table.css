@@ -8,7 +8,6 @@
         height: 48px;
         cursor: pointer;
 
-
         &_selected {
             border-left: 10px solid #1e88e5;
         }
@@ -16,7 +15,15 @@
 
     thead > tr > th {
         vertical-align: middle;
-        /* padding: 0px 56px 0px 56px; */
+        
+        @media (max-width: 1024px) {
+            font-size: 10px;
+        }
+
+        @media (max-width: 480px) {
+            font-size: 8px;
+            text-align: center;
+        }
     }
 
     .table {
@@ -35,8 +42,6 @@
     }
 
     .table &__column {
-        /* padding: 0px 56px 0px 56px; */
-
         &_name {
             width: 24%;
         }
