@@ -6,6 +6,7 @@ import Filter from './filter';
 import Search from './search';
 import CollapsableText from '../collapsable-text/collapsable-text';
 import EditableField from '../editable-field/editable-field';
+import Pager from './pager';
 import autobind from 'autobind-decorator';
 import * as actions from '../../actions';
 import './exibits-table.css';
@@ -21,9 +22,28 @@ const cn = require('bem-cn')('exibits-table');
     };
 })
 export default class ExibitsTable extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            page: 1,
+        };
+    }
+
     render() {
         const options = this.props.exibits && this.props.exibits.map(exibit => exibit.origin);
         const editedId = this.props.editedExibit && this.props.editedExibit.id;
+        const exibitsToWork = !this.props.exibits ? [] : this.props.exibits
+            .filter(exibit => !this.props.filters.length || this.props.filters.indexOf(exibit.origin) > -1)
+            .filter(exibit => !this.props.searchPattern.length
+                || exibit.name.toUpperCase().indexOf(this.props.searchPattern.toUpperCase()) > -1);
+        const exibitsToShow = exibitsToWork
+            .filter((exibit, index) => {
+                const firstOnPage = (this.state.page - 1) * this.props.itemsOnPage;
+                const lastOnPage = (this.state.page - 1) * this.props.itemsOnPage + this.props.itemsOnPage - 1;
+                return index >= firstOnPage && index <= lastOnPage;
+            }, this);
         return(
             <div className={cn.mix(this.props.className)}>
                 <Table hover>
@@ -49,11 +69,7 @@ export default class ExibitsTable extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                    { this.props.exibits && this.props.exibits
-                        .filter(exibit => !this.props.filters.length || this.props.filters.indexOf(exibit.origin) > -1)
-                        .filter(exibit => !this.props.searchPattern.length
-                            || exibit.name.toUpperCase().indexOf(this.props.searchPattern.toUpperCase()) > -1)
-                        .map(exibit =>
+                    { !!exibitsToShow && exibitsToShow.map(exibit =>
                         <tr
                             key={exibit.id}
                             data-id={exibit.id}
@@ -100,6 +116,19 @@ export default class ExibitsTable extends React.Component {
                         )
                     }
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colSpan="4">
+                                <Pager
+                                    className={cn('pager')}
+                                    items={exibitsToWork.length}
+                                    itemsLimit={this.props.itemsOnPage}
+                                    page={this.state.page}
+                                    onChange={this.handleOnPageChange}
+                                />
+                            </td>
+                        </tr>
+                    </tfoot>
                 </Table>
             </div>
         );
@@ -143,6 +172,13 @@ export default class ExibitsTable extends React.Component {
             description,
         }));
     }
+
+    @autobind
+    handleOnPageChange(page) {
+        this.setState({
+            page,
+        });
+    }
 }
 
 ExibitsTable.propTypes = {
@@ -152,4 +188,8 @@ ExibitsTable.propTypes = {
         origin: PropTypes.string,
         description: PropTypes.string,
     })),
+};
+
+ExibitsTable.defaultProps = {
+    itemsOnPage: 4,
 };

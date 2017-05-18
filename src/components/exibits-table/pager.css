@@ -1,0 +1,7 @@
+.exibits-table-pager {
+    height: 56px;
+    
+    ul.pagination {
+        margin: 0;
+    }
+}

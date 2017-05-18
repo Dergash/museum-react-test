@@ -1,5 +1,9 @@
 .exibits-table  {
 
+    &__pager {
+        float: right;
+    }
+
     &__row {
         height: 48px;
         cursor: pointer;
@@ -21,7 +25,12 @@
         
         tbody {
             height: 100%;
+        }
 
+        tfoot {
+            & > tr > td {
+                padding: 0;
+            }
         }
     }
 
