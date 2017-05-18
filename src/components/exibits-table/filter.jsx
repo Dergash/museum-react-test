@@ -50,6 +50,7 @@ export default class Filter extends React.Component {
             <ul>
                 { this.props.options
                     .sort((a, b) => a.localeCompare(b))
+                    .filter((option, index, array) => array[index + 1] !== option)
                     .map((option, index) => {
                         return (
                             <li key={index} data-option={option} onClick={this.handleOnCheckOption}>
