@@ -1,8 +1,10 @@
 # Launch:
 
+```
 > npm install
-
+> npm test
 > npm run start
+```
 
 # Previews
 

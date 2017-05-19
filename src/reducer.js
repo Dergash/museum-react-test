@@ -26,7 +26,7 @@ export default function reduce(state = {}, action) {
 function addExibit(state) {
     const generateId = state.exibits
         .map(exibit => exibit.id)
-        .reduce((previous, next) => ( next > previous ? next : previous), 0) + 1;
+        .reduce((previous, next) => ( next > previous ? next : previous), -1) + 1;
     return {
         ...state,
         exibits: [
