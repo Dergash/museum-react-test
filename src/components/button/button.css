@@ -3,21 +3,20 @@
     white-space: nowrap;
     background: none;
     border: none;
+    outline: 0;
 
     @media (max-width: 1024px) {
         white-space: normal;
     }
-}
 
-.button, .button:hover, .button:active, .button:focus {
-    outline:0;
-}
+    &:hover, &:active, &:focus {
+        outline: 0;
+    }
 
-.button:hover {
-    color: #616161;
-}
+    &:hover {
+        color: #616161;
+    }
 
-.button {
     &__icon {
         @media (max-width: 1024px) {
             display: none;
@@ -31,4 +30,3 @@
         font-weight: bold;
     }
 }
-
