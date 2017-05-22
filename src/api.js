@@ -11,7 +11,7 @@ export function getExibits() {
                 .map((exibit, index) => ({
                     id: index, // feels uncomfortable without a key :<
                     name: exibit.name,
-                    organization: exibit.origin,
+                    organization: exibit.organization,
                     origin: `${exibit.city}${exibit.city && exibit.country ? ', ' : ''}${exibit.country}`,
                     description: exibit.description,
                 }));
